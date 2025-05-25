@@ -2,6 +2,7 @@
   "expo": {
     "name": "cashier-cafe",
     "slug": "cashier-cafe",
+    "scheme": "cashiercafe",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +24,37 @@
       "edgeToEdgeEnabled": true
     },
     "web": {
+      "bundler": "metro",
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": ["./assets/fonts/FiraCode-Regular.ttf"],
+          "android": {
+            "fonts": [
+              {
+                "fontFamily": "FiraCode",
+                "fontDefinitions": [
+                  {
+                    "path": "./assets/fonts/FiraCode-Regular.ttf"
+                  },
+                  {
+                    "path": "./assets/fonts/FiraCode-Regular.ttf"
+                  }
+                ]
+              }
+            ]
+          },
+          "ios": {
+            "fonts": [
+              "./assets/fonts/Inter-Bold.ttf",
+              "./assets/fonts/Inter-BoldItalic.ttf"
+            ]
+          }
+        }
+      ]
+    ]
   }
 }
