@@ -1,12 +1,13 @@
-import { View, Text } from "react-native";
 import React from "react";
+import { View, Text } from "react-native";
+import "./../global.css";
 
-const index = () => {
+const App = () => {
   return (
     <View>
-      <Text>index</Text>
+      <Text>Test !==</Text>
     </View>
   );
 };
 
-export default index;
+export default App;

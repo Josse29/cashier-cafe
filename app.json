@@ -5,11 +5,11 @@
     "scheme": "cashiercafe",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/client/assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./src/client/assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,43 +18,43 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./src/client/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true
     },
     "web": {
       "bundler": "metro",
-      "favicon": "./assets/favicon.png"
+      "favicon": "./src/client/assets/favicon.png"
     },
     "plugins": [
-      [
-        "expo-font",
-        {
-          "fonts": ["./assets/fonts/FiraCode-Regular.ttf"],
-          "android": {
-            "fonts": [
-              {
-                "fontFamily": "FiraCode",
-                "fontDefinitions": [
-                  {
-                    "path": "./assets/fonts/FiraCode-Regular.ttf"
-                  },
-                  {
-                    "path": "./assets/fonts/FiraCode-Regular.ttf"
-                  }
-                ]
-              }
-            ]
-          },
-          "ios": {
-            "fonts": [
-              "./assets/fonts/Inter-Bold.ttf",
-              "./assets/fonts/Inter-BoldItalic.ttf"
-            ]
-          }
-        }
-      ]
+      // [
+      //   "expo-font",
+      //   {
+      //     "fonts": ["./src/client/assets/fonts/FiraCode-Regular.ttf"],
+      //     "android": {
+      //       "fonts": [
+      //         {
+      //           "fontFamily": "FiraCode",
+      //           "fontDefinitions": [
+      //             {
+      //               "path": "./src/client/assets/fonts/FiraCode-Regular.ttf"
+      //             },
+      //             {
+      //               "path": "./src/client/assets/fonts/FiraCode-Regular.ttf"
+      //             }
+      //           ]
+      //         }
+      //       ]
+      //     },
+      //     "ios": {
+      //       "fonts": [
+      //         "./src/client/assets/fonts/FiraCode-Regular.ttf",
+      //         "./src/client/assets/fonts/FiraCode-Regular.ttf"
+      //       ]
+      //     }
+      //   }
+      // ]
     ]
   }
 }

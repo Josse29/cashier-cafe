@@ -1,12 +1,12 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-const CardImgProduct = () => {
+const Login = () => {
   return (
     <View>
-      <Text>CardImgProduct</Text>
+      <Text>Login</Text>
     </View>
   );
 };
 
-export default CardImgProduct;
+export default Login;
