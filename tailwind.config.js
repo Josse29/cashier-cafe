@@ -8,6 +8,8 @@ module.exports = {
       fontFamily: {
         firacode: ["FiraCode"],
         montserrat: ["Montserrat"],
+        montserratbold: ["MontserratBold"],
+        montserratextrabold: ["MontserratExtraBold"],
         poppins: ["Poppins"],
       },
     },
