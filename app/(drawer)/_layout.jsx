@@ -4,53 +4,62 @@ import { Drawer } from "expo-router/drawer";
 import Entypo from "@expo/vector-icons/Entypo";
 import {
   DrawerContentScrollView,
-  DrawerItem,
   DrawerItemList,
 } from "@react-navigation/drawer";
 import { useRouter } from "expo-router";
-import { View, Text } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-// import { Josse } from "../assets";
-
+import { Baristaa, Logo } from "./../../src/client/assets";
+import { FontAwesome6, MaterialCommunityIcons } from "@expo/vector-icons";
+// 964a3b
 function customerDrawerContent(props) {
   const router = useRouter();
   const { top, bottom } = useSafeAreaInsets();
   return (
-    <View style={{ flex: 1 }}>
-      <DrawerContentScrollView
-        {...props}
-        scrollEnabled={false}
-        contentContainerStyle={{ backgroundColor: "#964a3b", paddingTop: top }}
-      >
-        {/* <View>
-          <Image
-            source={Josse}
-            style={{ width: 100, height: 100, borderRadius: 50 }}
-          />
-        </View> */}
-        <DrawerItemList {...props} />
-        {/* <DrawerItem label="Logout" onPress={() => router.replace("/")} /> */}
-      </DrawerContentScrollView>
+    <View>
       <View
-        style={{ padding: 20, borderTopWidth: 1, borderTopColor: "#964a3b" }}
-        onPress={() => router.replace("/")}
+        className="flex justify-center items-center bg-[#964a3b] w-full h-[280px] mb-4"
+        style={{ paddingTop: top }}
       >
-        <Text>Logout</Text>
+        <Image source={Baristaa} />
       </View>
+      <View className="p-3">
+        <DrawerItemList {...props} />
+      </View>
+      <TouchableOpacity
+        style={{
+          borderTopWidth: 1,
+          borderTopColor: "#DBD8D2",
+          padding: 20,
+        }}
+        onPress={() => router.push("/")}
+      >
+        <Text className="font-montserratbold">Logout</Text>
+      </TouchableOpacity>
     </View>
   );
 }
 
 const DrawerLayout = () => {
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView>
       <Drawer
         drawerContent={customerDrawerContent}
         screenOptions={{
-          drawerHideStatusBarOnOpen: true,
-          drawerActiveBackgroundColor: "#964a3b",
-          drawerActiveTintColor: "#fff",
-          // drawerLabelStyle: { marginLeft: -28 },
+          headerTitleStyle: {
+            fontFamily: "MontserratBold",
+          },
+          headerTintColor: "white",
+          headerStyle: {
+            backgroundColor: "#964a3b",
+          },
+          drawerHideStatusBarOnOpen: false,
+          drawerActiveBackgroundColor: "#ECDEBB",
+          drawerActiveTintColor: "#856c3e",
+          drawerLabelStyle: {
+            fontFamily: "MontserratBold",
+          },
+          headerShown: true,
         }}
       >
         <Drawer.Screen
@@ -59,7 +68,7 @@ const DrawerLayout = () => {
             drawerLabel: "Order",
             title: "Order",
             drawerIcon: ({ size, color }) => (
-              <Entypo name="home" size={size} color={color} />
+              <Entypo name="shopping-cart" size={size} color={color} />
             ),
           }}
         />
@@ -67,14 +76,34 @@ const DrawerLayout = () => {
           name="product"
           options={{
             drawerLabel: "Product",
-            title: "overview",
+            title: "Product",
+            drawerIcon: ({ size, color }) => (
+              <Entypo name="book" size={size} color={color} />
+            ),
           }}
         />
         <Drawer.Screen
           name="financial"
           options={{
             drawerLabel: "Financial",
-            title: "overview",
+            title: "Financial",
+            drawerIcon: ({ size, color }) => (
+              <MaterialCommunityIcons
+                name="finance"
+                size={size}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Drawer.Screen
+          name="profile"
+          options={{
+            drawerLabel: "Profile",
+            title: "Profile",
+            drawerIcon: ({ size, color }) => (
+              <FontAwesome6 name="house-user" size={size} color={color} />
+            ),
           }}
         />
       </Drawer>

@@ -13,21 +13,20 @@ const FormLogin = () => {
         </Text>
       </View>
       <View className="bg-[#6c3227] p-6 rounded-lg w-[85%]">
+        {/* username */}
         <View>
           <TextInput
-            className="bg-white mb-4 px-3 tracking-widest rounded-md font-montserratextrabold"
+            className="font-montserratextrabold bg-white mb-4 px-3 tracking-widest rounded-md"
             placeholder="Username :"
-            aria-label="input"
           />
         </View>
-        <View className="flex flex-row items-center mb-6 bg-white px-2 rounded-md  ">
-          <View className="w-[90%]">
-            <TextInput
-              secureTextEntry={passwordVisible}
-              className="tracking-widest rounded-md font-montserratextrabold"
-              placeholder="Password :"
-            />
-          </View>
+        {/* password */}
+        <View className="flex flex-row justify-between items-center mb-6 bg-white px-3 rounded-md">
+          <TextInput
+            secureTextEntry={passwordVisible}
+            className="font-montserratextrabold tracking-widest rounded-md w-[90%]"
+            placeholder="Password :"
+          />
           <TouchableOpacity
             onPress={() => setPasswordVisible(!passwordVisible)}
           >
@@ -39,7 +38,7 @@ const FormLogin = () => {
           </TouchableOpacity>
         </View>
         <TouchableOpacity
-          className="bg-[#d8ac28] py-2"
+          className="bg-[#d8ac28] py-3"
           onPress={() => router.push("/(drawer)/order")}
         >
           <Text className="text-center text-white text-2xl tracking-widest font-montserratextrabold">

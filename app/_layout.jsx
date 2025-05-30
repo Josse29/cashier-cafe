@@ -14,19 +14,22 @@ const RootLayout = () => {
   }
   return (
     <AllProvider>
-      <Stack>
-        <Stack.Screen
-          name="login"
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="(drawer)/order"
-          options={{
-            headerShown: false,
-          }}
-        />
+      <Stack
+        screenOptions={{
+          // presentation: "modal",
+          headerTitleStyle: {
+            fontFamily: "MontserratBold",
+          },
+          headerTintColor: "white",
+          headerStyle: {
+            backgroundColor: "#964a3b",
+          },
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(drawer)" />
+        <Stack.Screen name="(modal)" />
       </Stack>
     </AllProvider>
   );

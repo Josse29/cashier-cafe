@@ -31,17 +31,20 @@
       [
         "expo-font",
         {
-          "fonts": ["./src/client/assets/fonts/FiraCode-Regular.ttf"],
+          "fonts": ["./assets/fonts/Montserrat-Regular.ttf"],
           "android": {
             "fonts": [
               {
-                "fontFamily": "FiraCode",
+                "fontFamily": "Montserrat",
                 "fontDefinitions": [
                   {
-                    "path": "./src/client/assets/fonts/FiraCode-Regular.ttf"
+                    "path": "./assets/fonts/Montserrat-Bold.ttf"
+                    // "weight": 700,
+                    // "style": "italic"
                   },
                   {
-                    "path": "./src/client/assets/fonts/FiraCode-Regular.ttf"
+                    "path": "./assets/fonts/Montserrat-ExtraBold.ttf"
+                    // "weight": 700
                   }
                 ]
               }
@@ -49,8 +52,27 @@
           },
           "ios": {
             "fonts": [
-              "./src/client/assets/fonts/FiraCode-Regular.ttf",
-              "./src/client/assets/fonts/FiraCode-Regular.ttf"
+              "./assets/fonts/Montserrat-Regular.ttf",
+              "./assets/fonts/Montserrat-Bold.ttf",
+              "./assets/fonts/Montserrat-ExtraBold.ttf"
+            ]
+          }
+        }
+      ],
+      [
+        "expo-sqlite",
+        {
+          "enableFTS": true,
+          "useSQLCipher": true,
+          "android": {
+            // Override the shared configuration for Android
+            "enableFTS": false,
+            "useSQLCipher": false
+          },
+          "ios": {
+            // You can also override the shared configurations for iOS
+            "customBuildFlags": [
+              "-DSQLITE_ENABLE_DBSTAT_VTAB=1 -DSQLITE_ENABLE_SNAPSHOT=1"
             ]
           }
         }
