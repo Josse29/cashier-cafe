@@ -1,13 +1,13 @@
 import React from "react";
-import { AllProvider } from "../src/client/context/AllProvider";
-import { useFonts } from "expo-font";
+import { AllProvider } from "../src/context/AllProvider";
 import { Stack } from "expo-router";
+import { useFonts } from "expo-font";
 
 const RootLayout = () => {
   const [fontsLoaded] = useFonts({
-    Montserrat: require("./../src/client/assets/fonts/Montserrat-Regular.ttf"),
-    MontserratBold: require("./../src/client/assets/fonts/Montserrat-Bold.ttf"),
-    MontserratExtraBold: require("./../src/client/assets/fonts/Montserrat-ExtraBold.ttf"),
+    Montserrat: require("./../src/assets/fonts/Montserrat-Regular.ttf"),
+    MontserratBold: require("./../src/assets/fonts/Montserrat-Bold.ttf"),
+    MontserratExtraBold: require("./../src/assets/fonts/Montserrat-ExtraBold.ttf"),
   });
   if (!fontsLoaded) {
     return null;

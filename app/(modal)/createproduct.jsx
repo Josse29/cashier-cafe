@@ -6,19 +6,14 @@ import {
   Keyboard,
 } from "react-native";
 import React from "react";
-import CreateProduct from "../../src/client/features/product/CreateProduct";
+import CreateProduct from "../../src/features/product/CreateProduct";
+import { KeyboardAvoidingComponent } from "../../src/components";
 
 const ModalCreateProduct = () => {
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
-      className="bg-white"
-    >
-      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
+    <KeyboardAvoidingComponent>
       <CreateProduct />
-      {/* </TouchableWithoutFeedback> */}
-    </KeyboardAvoidingView>
+    </KeyboardAvoidingComponent>
   );
 };
 

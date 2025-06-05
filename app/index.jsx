@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { View, Dimensions } from "react-native";
-import { Bg, Logo } from "../src/client/assets";
-import { FormLogin } from "../src/client/features/user";
+import { Bg, Logo } from "../src/assets";
+import { FormLogin } from "../src/features/user";
 const { width, height } = Dimensions.get("window");
 import "./../global.css";
-import { SafeAreaProvider } from "react-native-safe-area-context";
+import { AllContext } from "../src/context/AllProvider";
 
 const Login = () => {
   return (

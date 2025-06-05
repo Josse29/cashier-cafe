@@ -3,7 +3,7 @@ import React from "react";
 import { Coffee } from "../../assets";
 import { Entypo } from "@expo/vector-icons";
 
-const CardImgProduct = () => {
+const CardImgProduct = (props) => {
   return (
     <View className="w-1/2 p-2 py-3">
       <Image source={Coffee} className="h-[120px] w-full" />

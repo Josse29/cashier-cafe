@@ -8,8 +8,11 @@ import {
 } from "@react-navigation/drawer";
 import { useRouter } from "expo-router";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Baristaa, Logo } from "./../../src/client/assets";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
+import { Baristaa, Logo } from "./../../src/assets";
 import { FontAwesome6, MaterialCommunityIcons } from "@expo/vector-icons";
 // 964a3b
 function customerDrawerContent(props) {
@@ -34,7 +37,7 @@ function customerDrawerContent(props) {
         }}
         onPress={() => router.push("/")}
       >
-        <Text className="font-montserratbold">Logout</Text>
+        <Text className="font-montserratbold text-red-400 text-xl">Logout</Text>
       </TouchableOpacity>
     </View>
   );

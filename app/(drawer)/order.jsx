@@ -4,8 +4,8 @@ import {
   BtnPageProduct,
   CardImgProduct,
   SearchProduct,
-} from "../../src/client/features/product";
-import { BtnPayment } from "../../src/client/features/cash";
+} from "../../src/features/product";
+import { BtnPayment } from "../../src/features/cash";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Order = () => {

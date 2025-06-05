@@ -1,20 +1,22 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Coffee } from "../../assets";
 import { Entypo, FontAwesome } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 
-const CardImgProduct1 = () => {
+const CardImgProduct1 = (props) => {
+  const { data } = props;
+  const { ProductId, ProductName, ProductPrice, ProductInfo } = data;
   const router = useRouter();
   return (
     <View className="flex flex-row w-full mb-5">
       <Image source={Coffee} className="w-[40%] h-[150px]" />
       <View className="w-[60%] justify-center p-3 bg-white rounded-r-2xl">
         <Text className="font-montserratbold text-2xl mb-2" numberOfLines={2}>
-          Coffee Name
+          {ProductName}
         </Text>
         <Text className="font-montserratbold text-xl mb-4 text-[#B67D03]">
-          Coffee Price
+          {ProductPrice}
         </Text>
         <View className="flex flex-row gap-2">
           <TouchableOpacity
