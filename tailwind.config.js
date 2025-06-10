@@ -10,6 +10,7 @@ module.exports = {
         montserrat: ["Montserrat"],
         montserratbold: ["MontserratBold"],
         montserratextrabold: ["MontserratExtraBold"],
+        montserratsemibolditalic: ["MontserratSemiBoldItalic"],
         poppins: ["Poppins"],
       },
     },

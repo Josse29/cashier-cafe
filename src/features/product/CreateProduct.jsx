@@ -1,30 +1,20 @@
-import { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-} from "react-native";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
-import * as ImagePicker from "expo-image-picker";
-import { Coffee1 } from "../../assets";
-import { FontAwesome } from "@expo/vector-icons";
+import { useContext, useRef, useState } from "react";
+import { View, Text, ScrollView, TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import {
+  Alerts,
   InputBalance,
   InputImg,
   InputTxt,
   InputTxtMulti,
 } from "../../components";
 import { createProductAPI } from "../../services/product";
-import { unFormatCurrency } from "../../utils";
+import { delay, unFormatCurrency } from "../../utils";
+import { AllContext } from "../../context/AllProvider";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const CreateProduct = () => {
+  const { setProductSuccess } = useContext(AllContext);
   const { top, bottom } = useSafeAreaInsets();
   const [loading, setLoading] = useState(false);
   const [req, setReq] = useState({
@@ -33,22 +23,24 @@ const CreateProduct = () => {
     img: "",
     productInfo: "",
   });
+  const scrollViewRef = useRef(null);
+  const [errMsg, setErrMsg] = useState("");
   const handleCreate = async () => {
     setLoading(true);
     try {
-      console.log(req);
-      return;
-      const { productName, balance, img, productInfo } = req;
+      const { productName, productPrice, img, productInfo } = req;
       const created = await createProductAPI({
         productName,
-        productPrice: unFormatCurrency(balance),
+        productPrice: unFormatCurrency(productPrice),
         productImg: img,
         productInfo,
       });
-      console.log(created);
-      // router.back();
+      setProductSuccess(created);
+      router.back();
     } catch (error) {
-      console.error(error);
+      setErrMsg(error.message);
+      // await delay(100);
+      scrollViewRef.current?.scrollTo({ y: 0, animated: true });
       throw error;
     } finally {
       setLoading(false);
@@ -57,10 +49,13 @@ const CreateProduct = () => {
   return (
     <View className="flex-1">
       <ScrollView
-        keyboardShouldPersistTaps="handled"
+        ref={scrollViewRef}
+        keyboardShouldPersistTaps="always"
         // contentContainerStyle={{ paddingBottom: 20 }}
       >
         <View className="p-5">
+          {/* alert error */}
+          <Alerts status="error" msg={errMsg} setMsg={setErrMsg} />
           {/* product name */}
           <InputTxt
             title="Product Name"
@@ -96,27 +91,11 @@ const CreateProduct = () => {
             setReq={setReq}
             field="productInfo"
             value={req.productInfo}
+            placeholder="ex : desc your product detail"
           />
-          {/* <View className="mb-5">
-            <Text className="text-2xl font-montserratbold mb-2 text-[#964a3b]">
-              More Information
-            </Text>
-            <TextInput
-              multiline={true}
-              numberOfLines={15}
-              style={{
-                height: 180,
-                textAlignVertical: "top",
-              }}
-              className="font-montserratbold rounded-lg px-3 border border-[#964a3b] focus:border-2 text-[#964a3b]"
-              placeholder="ex : describe your product..."
-              onChangeText={(txt) => handleChange(txt, "productInfo")}
-              value={req.productInfo}
-              placeholderTextColor="#964a3b"
-            />
-          </View> */}
         </View>
       </ScrollView>
+      {/* button create */}
       <View
         className="p-4 border-t border-t-[#d1c6c4]"
         style={{ paddingBottom: bottom + 60 }}

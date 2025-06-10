@@ -8,6 +8,7 @@ const RootLayout = () => {
     Montserrat: require("./../src/assets/fonts/Montserrat-Regular.ttf"),
     MontserratBold: require("./../src/assets/fonts/Montserrat-Bold.ttf"),
     MontserratExtraBold: require("./../src/assets/fonts/Montserrat-ExtraBold.ttf"),
+    MontserratSemiBoldItalic: require("./../src/assets/fonts/Montserrat-SemiBoldItalic.ttf"),
   });
   if (!fontsLoaded) {
     return null;

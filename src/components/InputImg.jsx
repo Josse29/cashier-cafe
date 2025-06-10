@@ -14,21 +14,6 @@ const InputImg = (props) => {
       });
       if (result.assets && result.assets.length > 0) {
         const img = result.assets[0];
-        // 1.validate extension
-        const validateExt = img.mimeType.startsWith("image");
-        if (!validateExt) {
-          const errMsg = "Uppsss, It's not Image";
-          console.error(errMsg);
-        }
-        // 2. validation size
-        const base64Length = img.base64.length;
-        const sizeInBytes =
-          4 * Math.ceil(base64Length / 3) * 0.5624896334383812;
-        const sizeInMB = sizeInBytes / (1024 * 1024);
-        if (sizeInMB > 1) {
-          const errMsg = "Uppsss, Maximize file Image = 1 MB";
-          console.error(errMsg);
-        }
         setReq((prev) => ({
           ...prev,
           img,
@@ -42,7 +27,7 @@ const InputImg = (props) => {
   };
   return (
     <View className="mb-5">
-      <Text className={`text-2xl font-montserratbold mb-3 text-[${color}]`}>
+      <Text className={`text-2xl font-montserratbold mb-3`} style={{ color }}>
         {title}
       </Text>
       {req.img && (
@@ -64,14 +49,19 @@ const InputImg = (props) => {
             />
           </TouchableOpacity>
           <Image
-            source={{ uri: `data:image/jpeg;base64,${req.img.base64}` }}
+            source={
+              req.img.base64
+                ? { uri: `data:image/jpeg;base64,${req.img.base64}` }
+                : { uri: `data:image/jpeg;base64,${req.img}` }
+            }
             className="w-full h-[220px]"
           />
         </View>
       )}
       <TouchableOpacity onPress={pickImage}>
         <Text
-          className={`font-montserratbold rounded-lg p-3 border border-[${color}] text-[${color}]`}
+          className={`font-montserratbold rounded-lg p-3 border`}
+          style={{ color, borderColor: color }}
         >
           Choose Image
         </Text>

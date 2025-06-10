@@ -4,7 +4,6 @@ import { Stack } from "expo-router";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Layout = () => {
-  const { top } = useSafeAreaInsets();
   return (
     <Stack
       screenOptions={{
@@ -47,6 +46,18 @@ const Layout = () => {
         name="detailproduct"
         options={{
           headerTitle: "Detail Product",
+        }}
+      />
+      <Stack.Screen
+        name="createcashin"
+        options={{
+          headerTitle: "Cash In",
+        }}
+      />
+      <Stack.Screen
+        name="createcashout"
+        options={{
+          headerTitle: "Cash Out",
         }}
       />
     </Stack>

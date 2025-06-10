@@ -18,7 +18,7 @@ const InputTxtMulti = (props) => {
   };
   return (
     <View className="mb-5">
-      <Text className={`text-2xl font-montserratbold mb-2 text-[${color}]`}>
+      <Text className={`text-2xl font-montserratbold mb-2`} style={{ color }}>
         {title}
       </Text>
       <TextInput
@@ -27,9 +27,10 @@ const InputTxtMulti = (props) => {
         style={{
           height: 180,
           textAlignVertical: "top",
+          color,
+          borderColor: color,
         }}
-        className={`font-montserratbold rounded-lg px-3 border border-[${color}] focus:border-2 text-[${color}]`}
-        placeholder="ex : describe your product..."
+        className={`font-montserratbold rounded-lg px-3 border focus:border-2`}
         onChangeText={(txt) => handleChange(field, txt)}
         placeholderTextColor={`${color}`}
         {...rest}

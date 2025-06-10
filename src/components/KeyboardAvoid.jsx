@@ -2,14 +2,10 @@ import React from "react";
 import {
   View,
   KeyboardAvoidingView,
-  TextInput,
   StyleSheet,
-  Text,
   Platform,
   TouchableWithoutFeedback,
-  Button,
   Keyboard,
-  ScrollView,
 } from "react-native";
 
 const KeyboardAvoidingComponent = ({ children }) => {
@@ -17,7 +13,7 @@ const KeyboardAvoidingComponent = ({ children }) => {
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={styles.container}
-      // keyboardVerticalOffset={60}
+      //  keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.inner}>{children}</View>
@@ -33,10 +29,6 @@ const styles = StyleSheet.create({
   inner: {
     flex: 1,
     backgroundColor: "white",
-  },
-  header: {
-    fontSize: 36,
-    marginBottom: 48,
   },
 });
 

@@ -1,12 +1,28 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Dimensions } from "react-native";
 import { Bg, Logo } from "../src/assets";
 import { FormLogin } from "../src/features/user";
 const { width, height } = Dimensions.get("window");
 import "./../global.css";
-import { AllContext } from "../src/context/AllProvider";
+import { productSchema } from "../src/services/product";
+import { cashSchema } from "../src/services/cash";
 
 const Login = () => {
+  const [loading, setLoading] = useState(false);
+  const dbInit = async () => {
+    setLoading(true);
+    try {
+      await productSchema();
+      await cashSchema();
+    } catch (error) {
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    dbInit();
+  }, []);
   return (
     <View className="bg-[#ECDEBB] h-full w-screen">
       <Bg width={width} height="100%" preserveAspectRatio="none" />
@@ -15,7 +31,7 @@ const Login = () => {
           <View className="bg-[#964a3b] p-3 w-[110px] h-[110px] rounded-lg flex items-center justify-center ps-[15px] mb-6">
             <Logo />
           </View>
-          <FormLogin />
+          <FormLogin loading={loading} setLoading={setLoading} />
         </View>
       </View>
     </View>

@@ -1,12 +1,6 @@
-import { View, Text } from "react-native";
-import React from "react";
-
-const DetailProduct = () => {
-  return (
-    <View>
-      <Text>DetailProduct</Text>
-    </View>
-  );
+import { DetailProduct } from "./../../src/features/product";
+const ModalDetailProduct = () => {
+  return <DetailProduct />;
 };
 
-export default DetailProduct;
+export default ModalDetailProduct;

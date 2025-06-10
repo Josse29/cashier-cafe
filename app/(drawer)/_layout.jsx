@@ -14,7 +14,7 @@ import {
 } from "react-native-safe-area-context";
 import { Baristaa, Logo } from "./../../src/assets";
 import { FontAwesome6, MaterialCommunityIcons } from "@expo/vector-icons";
-// 964a3b
+
 function customerDrawerContent(props) {
   const router = useRouter();
   const { top, bottom } = useSafeAreaInsets();
@@ -42,7 +42,6 @@ function customerDrawerContent(props) {
     </View>
   );
 }
-
 const DrawerLayout = () => {
   return (
     <GestureHandlerRootView>
@@ -113,5 +112,4 @@ const DrawerLayout = () => {
     </GestureHandlerRootView>
   );
 };
-
 export default DrawerLayout;

@@ -7,6 +7,7 @@ import Coffee from "./img/coffee.jpg";
 import Coffee1 from "./img/coffee-1.jpg";
 import Coffee2 from "./img/coffee-2.jpg";
 import Baristaa from "./img/barista-man.png";
+import NoImg from "./img/no-img.jpg";
 export {
   Baristaa,
   Bg,
@@ -17,4 +18,5 @@ export {
   Logo,
   Montserrat,
   MontserratBold,
+  NoImg,
 };

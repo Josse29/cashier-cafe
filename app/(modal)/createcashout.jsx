@@ -1,14 +1,14 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { KeyboardAvoidingComponent } from "../../src/components";
-import { UpdateProduct } from "./../../src/features/product";
+import { CreateCash } from "../../src/features/cash";
 
-const ModalUpdateProduct = () => {
+const ModalCreateCashOut = () => {
   return (
     <KeyboardAvoidingComponent>
-      <UpdateProduct />
+      <CreateCash />
     </KeyboardAvoidingComponent>
   );
 };
 
-export default ModalUpdateProduct;
+export default ModalCreateCashOut;

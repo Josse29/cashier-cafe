@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { AllContext } from "../../context/AllProvider";
 const FormLogin = (props) => {
-  const { loading, setLoading } = useState(false);
+  const { loading, setLoading } = useContext(AllContext);
   const router = useRouter();
   const [passwordVisible, setPasswordVisible] = useState(false);
   return (

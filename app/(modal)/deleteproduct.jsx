@@ -1,12 +1,13 @@
 import { View, Text } from "react-native";
 import React from "react";
+import { DeleteProduct } from "../../src/features/product";
 
-const DeleteProduct = () => {
+const ModalDeleteProduct = () => {
   return (
     <View>
-      <Text>DeleteProduct</Text>
+      <DeleteProduct />
     </View>
   );
 };
 
-export default DeleteProduct;
+export default ModalDeleteProduct;

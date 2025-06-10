@@ -15,6 +15,13 @@ const formatCurrency = (num) => {
   currency = split[1] !== undefined ? currency + "," + split[1] : currency;
   return currency ? "Rp " + currency : "";
 };
+const formatCurrency1 = (input) => {
+  const formattedValue = new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+  }).format(input);
+  return formattedValue;
+};
 const unFormatCurrency = (val) => {
   const price = val
     ? val
@@ -22,6 +29,6 @@ const unFormatCurrency = (val) => {
         .replace(/\./g, "")
         .replace(/,/g, ".")
     : 0;
-  return price;
+  return parseFloat(price);
 };
-export { formatCurrency, unFormatCurrency };
+export { formatCurrency, formatCurrency1, unFormatCurrency };
