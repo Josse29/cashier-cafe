@@ -16,7 +16,7 @@ import { Entypo } from "@expo/vector-icons";
 const CreateCash = (props) => {
   const { delta } = props;
   const { cashTotal } = useLocalSearchParams();
-  const { setCashSuccess } = useContext(AllContext);
+  const { isKeyboardVisible, setCashSuccess } = useContext(AllContext);
   const { top, bottom } = useSafeAreaInsets();
   const [loading, setLoading] = useState(false);
   const scrollViewRef = useRef(null);
@@ -50,8 +50,8 @@ const CreateCash = (props) => {
     }
   };
   return (
-    <View className="flex-1">
-      <ScrollView ref={scrollViewRef} keyboardShouldPersistTaps="always">
+    <View className="flex-1 bg-white">
+      <ScrollView ref={scrollViewRef} keyboardShouldPersistTaps="handled">
         <View className="p-5">
           {/* alert error */}
           <Alerts status="error" msg={errMsg} setMsg={setErrMsg} />
@@ -60,10 +60,10 @@ const CreateCash = (props) => {
             <View className="flex flex-row items-center gap-2 mb-3">
               <Entypo name="wallet" size={24} color="#c5624e" />
               <Text className="text-center font-montserratbold tracking-wider text-xl text-[#c5624e]">
-                Total Cash
+                Total Cash :
               </Text>
             </View>
-            <Text className="font-montserratbold text-2xl bg-[#964a3b] text-white px-2 py-1 rounded-lg">
+            <Text className="font-montserratbold text-2xl bg-[#c5624e] text-white px-2 py-1 rounded-lg">
               {formatCurrency(cashTotal)}
             </Text>
           </View>
@@ -101,7 +101,7 @@ const CreateCash = (props) => {
       </ScrollView>
       <View
         className="p-4 border-t border-t-[#d1c6c4]"
-        style={{ paddingBottom: bottom + 60 }}
+        style={{ paddingBottom: isKeyboardVisible ? bottom + 60 : bottom + 20 }}
       >
         <TouchableOpacity
           className="bg-[#964a3b] px-4 py-3 rounded-md"

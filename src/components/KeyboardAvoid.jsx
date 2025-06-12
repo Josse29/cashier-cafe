@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import {
   View,
   KeyboardAvoidingView,
@@ -7,29 +7,44 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import { AllContext } from "../context/AllProvider";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const KeyboardAvoidingComponent = ({ children }) => {
+  const { setKeyboardVisible } = useContext(AllContext);
+  const { bottom } = useSafeAreaInsets();
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => setKeyboardVisible(true)
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => setKeyboardVisible(false)
+    );
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
-      //  keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
+      style={{ flex: 1 }}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.inner}>{children}</View>
-      </TouchableWithoutFeedback>
+      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
+      {children}
+      {/* </TouchableWithoutFeedback> */}
     </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  inner: {
-    flex: 1,
-    backgroundColor: "white",
-  },
+  // inner: {
+  //   flex: 1,
+  //   backgroundColor: "white",
+  // },
 });
 
 export default KeyboardAvoidingComponent;

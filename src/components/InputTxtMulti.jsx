@@ -30,7 +30,7 @@ const InputTxtMulti = (props) => {
           color,
           borderColor: color,
         }}
-        className={`font-montserratbold rounded-lg px-3 border focus:border-2`}
+        className={`font-montserratbold rounded-lg px-3 border focus:border-2 bg-white`}
         onChangeText={(txt) => handleChange(field, txt)}
         placeholderTextColor={`${color}`}
         {...rest}

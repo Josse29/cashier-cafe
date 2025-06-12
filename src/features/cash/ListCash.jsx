@@ -1,28 +1,37 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { formatCurrency1, formatDate } from "../../utils";
+import { TxtTruncate } from "../../components";
 
 const ListCash = (props) => {
   const { data } = props;
-  const { CashDate, CashName, CashTime, CashBalance } = data;
+  const { CashDate, CashTime, CashName, CashBalance } = data;
   return (
-    <View className="flex flex-row justify-between items-center pb-4 border-b-2 border-b-slate-200 mb-4">
-      <View>
-        <Text className="font-montserratbold text-xl mb-1">{CashName}</Text>
-        <Text className="font-montserrat text-sm">{formatDate(CashDate)}</Text>
+    <>
+      <View className="flex flex-row justify-between mb-1">
+        <TxtTruncate
+          title={formatDate(CashDate)}
+          className="font-montserrat text-sm"
+        />
+        <TxtTruncate title={CashTime} className="font-montserrat text-sm" />
       </View>
-      <View>
-        <Text
-          className={`font-montserratbold text-2xl ${
-            CashBalance ? "text-[#c5624e]" : "text-[#562f28]"
+      <TxtTruncate
+        title={CashName}
+        className="font-montserratbold text-xl mb-2"
+      />
+      <View className="pb-4 border-b-2 border-b-slate-200 mb-2">
+        <TxtTruncate
+          title={
+            CashBalance >= 1
+              ? `+ ${formatCurrency1(CashBalance)}`
+              : `- ${formatCurrency1(Math.abs(CashBalance))}`
+          }
+          className={`font-montserratbold ms-2 text-xl self-start px-2 py-1 rounded-md text-white ${
+            CashBalance >= 1 ? "bg-teal-600" : "bg-red-600"
           }`}
-        >
-          {CashBalance >= 1
-            ? `+ ${formatCurrency1(CashBalance)}`
-            : `- ${formatCurrency1(Math.abs(CashBalance))}`}
-        </Text>
+        />
       </View>
-    </View>
+    </>
   );
 };
 

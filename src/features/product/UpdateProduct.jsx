@@ -17,7 +17,7 @@ import { router } from "expo-router";
 
 const UpdateProduct = () => {
   const { ProductId } = useLocalSearchParams();
-  const { setProductSuccess } = useContext(AllContext);
+  const { isKeyboardVisible, setProductSuccess } = useContext(AllContext);
   const { top, bottom } = useSafeAreaInsets();
   const [loading, setLoading] = useState(false);
   const [req, setReq] = useState({
@@ -74,7 +74,7 @@ const UpdateProduct = () => {
     }
   };
   return (
-    <View className="flex-1">
+    <View className="flex-1 bg-white">
       {loading && (
         <View
           className="flex justify-center h-screen"
@@ -88,54 +88,54 @@ const UpdateProduct = () => {
           <ScrollView
             ref={scrollViewRef}
             keyboardShouldPersistTaps="always"
-            // contentContainerStyle={{ paddingBottom: 20 }}
+            contentContainerStyle={{ padding: 15 }}
           >
-            <View className="p-5">
-              {/* alert error */}
-              <Alerts status="error" msg={errMsg} setMsg={setErrMsg} />
-              {/* product name */}
-              <InputTxt
-                title="Product Name"
-                color="#964a3b"
-                placeholder="ex : product name"
-                req={req}
-                setReq={setReq}
-                value={req.productName}
-                field="productName"
-              />
-              {/* product price */}
-              <InputBalance
-                title="Product Price"
-                color="#964a3b"
-                placeholder="ex : $ 10.00"
-                req={req}
-                setReq={setReq}
-                value={req.productPrice}
-                field="productPrice"
-              />
-              {/* product img */}
-              <InputImg
-                title="Product Image"
-                color="#964a3b"
-                req={req}
-                setReq={setReq}
-                setLoading={setLoading}
-              />
-              {/* product info */}
-              <InputTxtMulti
-                color="#964a3b"
-                req={req}
-                setReq={setReq}
-                field="productInfo"
-                value={req.productInfo}
-                placeholder="ex : desc your product detail"
-              />
-            </View>
+            {/* alert error */}
+            <Alerts status="error" msg={errMsg} setMsg={setErrMsg} />
+            {/* product name */}
+            <InputTxt
+              title="Product Name"
+              color="#964a3b"
+              placeholder="ex : product name"
+              req={req}
+              setReq={setReq}
+              value={req.productName}
+              field="productName"
+            />
+            {/* product price */}
+            <InputBalance
+              title="Product Price"
+              color="#964a3b"
+              placeholder="ex : $ 10.00"
+              req={req}
+              setReq={setReq}
+              value={req.productPrice}
+              field="productPrice"
+            />
+            {/* product img */}
+            <InputImg
+              title="Product Image"
+              color="#964a3b"
+              req={req}
+              setReq={setReq}
+              setLoading={setLoading}
+            />
+            {/* product info */}
+            <InputTxtMulti
+              color="#964a3b"
+              req={req}
+              setReq={setReq}
+              field="productInfo"
+              value={req.productInfo}
+              placeholder="ex : desc your product detail"
+            />
           </ScrollView>
           {/* button update */}
           <View
-            className="p-4 border-t border-t-[#d1c6c4]"
-            style={{ paddingBottom: bottom + 60 }}
+            className="p-4 border-t border-t-[#d1c6c4] bg-white"
+            style={{
+              paddingBottom: isKeyboardVisible ? bottom + 60 : bottom + 20,
+            }}
           >
             <TouchableOpacity
               className="bg-[#964a3b] px-4 py-3 rounded-md"

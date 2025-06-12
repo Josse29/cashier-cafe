@@ -32,6 +32,7 @@ const InputImg = (props) => {
       </Text>
       {req.img && (
         <View className="mb-4 relative">
+          {/* cancel img  */}
           <TouchableOpacity
             className={`absolute top-[-15px] right-[-10px] z-10 bg-red-500 h-[40px] w-[40px] flex rounded-full`}
             onPress={() => {
@@ -60,7 +61,7 @@ const InputImg = (props) => {
       )}
       <TouchableOpacity onPress={pickImage}>
         <Text
-          className={`font-montserratbold rounded-lg p-3 border`}
+          className={`font-montserratbold rounded-lg p-3 border bg-white`}
           style={{ color, borderColor: color }}
         >
           Choose Image

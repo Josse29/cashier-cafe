@@ -73,6 +73,7 @@ const getCashAPI = async () => {
   const db = await getDB();
   const query = `
   SELECT * FROM Cash
+  ORDER BY CashDate DESC, CashTime DESC
   `;
   const data = await db.getAllAsync(query);
   const query1 = `

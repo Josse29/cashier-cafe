@@ -27,20 +27,20 @@ const Product = () => {
   const flatListRef = useRef(null);
   const [req, setReq] = useState({
     search: "",
-    limit: 1,
+    limit: 10,
     offset: 1,
   });
   const getProduct = async (req) => {
     setLoading(true);
     try {
       const { products, pagination } = await getProductAPI(req);
-
       setProduct(products);
       setTotalPage(pagination);
     } catch (error) {
       console.error(error);
       throw error;
     } finally {
+      await delay(200);
       flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
       setLoading(false);
     }
@@ -52,15 +52,26 @@ const Product = () => {
     if (productSuccess) {
       getProduct({
         search: "",
-        limit: 1,
+        limit: 10,
         offset: 1,
       });
     }
   }, [productSuccess]);
   return (
-    <KeyboardAvoidingComponent>
-      <View className="bg-white h-full">
+    <View className="bg-white h-screen" style={{ paddingBottom: bottom }}>
+      <KeyboardAvoidingComponent>
         <FlatList
+          data={loading ? [{}] : product}
+          renderItem={({ item }) =>
+            loading ? (
+              <Spinner />
+            ) : (
+              product.length >= 1 && <CardImgProduct1 data={item} />
+            )
+          }
+          keyExtractor={(item, index) =>
+            item?.ProductId?.toString() || index.toString()
+          }
           ListHeaderComponent={
             <>
               {/* btn create */}
@@ -90,13 +101,6 @@ const Product = () => {
               />
             </>
           }
-          renderItem={({ item }) =>
-            loading ? (
-              <Spinner />
-            ) : (
-              product.length >= 1 && <CardImgProduct1 data={item} />
-            )
-          }
           ListEmptyComponent={
             !loading && (
               <Text className="text-center text-[#856c3e] font-montserratsemibolditalic text-2xl my-5">
@@ -118,19 +122,15 @@ const Product = () => {
               </View>
             )
           }
-          data={loading ? [{}] : product}
           ref={flatListRef}
-          keyboardShouldPersistTaps="always"
-          keyExtractor={(item, index) =>
-            item?.ProductId?.toString() || index.toString()
-          }
+          keyboardShouldPersistTaps="handled"
           contentContainerStyle={{
             padding: 16,
             marginBottom: bottom,
           }}
         />
-      </View>
-    </KeyboardAvoidingComponent>
+      </KeyboardAvoidingComponent>
+    </View>
   );
 };
 

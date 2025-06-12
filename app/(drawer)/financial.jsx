@@ -2,19 +2,23 @@ import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { formatCurrency1 } from "./../../src/utils";
-import { Entypo } from "@expo/vector-icons";
+import {
+  Entypo,
+  FontAwesome5,
+  Fontisto,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { router } from "expo-router";
-import { Alerts, Spinner } from "../../src/components";
+import { Alerts, Spinner, TxtTruncate } from "../../src/components";
 import { AllContext } from "../../src/context/AllProvider";
 import { getCashAPI } from "../../src/services/cash";
-import { ListCash } from "../../src/features/cash";
+import { BtnExportExcel, ListCash } from "../../src/features/cash";
 
 const Financial = () => {
-  const { cashSuccess, setCashSuccess } = useContext(AllContext);
+  const { cashSuccess, setCashSuccess, orderSuccess } = useContext(AllContext);
   const { bottom } = useSafeAreaInsets();
   const [loading, setLoading] = useState(false);
   const [cashTotal, setCashTotal] = useState(0);
-  const [expanded, setExpanded] = useState(false);
   const [cash, setCash] = useState([]);
   const getCash = async () => {
     setLoading(true);
@@ -30,11 +34,16 @@ const Financial = () => {
     }
   };
   useEffect(() => {
+    if (cashSuccess) {
+      getCash();
+    }
+  }, [cashSuccess, orderSuccess]);
+  useEffect(() => {
     getCash();
-  }, [cashSuccess]);
+  }, []);
   const flatListRef = useRef(null);
   return (
-    <View className="bg-white h-screen p-5">
+    <View className="bg-white h-screen" style={{ paddingBottom: bottom }}>
       {/* history */}
       <FlatList
         data={loading ? [{}] : cash}
@@ -51,24 +60,21 @@ const Financial = () => {
               <View className="flex flex-row items-center gap-2 mb-3">
                 <Entypo name="wallet" size={24} color="#c5624e" />
                 <Text className="text-center font-montserratbold tracking-wider text-xl text-[#c5624e]">
-                  Total Cash
+                  Total Cash :
                 </Text>
               </View>
-              <Text
-                className="font-montserratbold tracking-wider text-3xl"
-                numberOfLines={expanded ? 2 : undefined}
-                onPress={() => setExpanded(!expanded)}
-              >
-                {formatCurrency1(cashTotal)}
-              </Text>
+              <TxtTruncate
+                title={`${
+                  cashTotal > 0
+                    ? `+ ${formatCurrency1(cashTotal)}`
+                    : `${formatCurrency1(0)}`
+                }`}
+                className="font-montserratbold tracking-wider text-3xl text-white bg-[#c5624e] px-3 py-1 rounded-xl"
+              />
             </View>
-            {/* create  */}
-            <View className="flex flex-row justify-between items-center mb-5">
-              <View>
-                <Text className="font-montserratbold text-2xl text-[#c5624e]">
-                  Transaction
-                </Text>
-              </View>
+            {/* export excel && create  */}
+            <View className="flex flex-row justify-between items-center my-4">
+              <BtnExportExcel />
               <View className="flex flex-row gap-3">
                 {/* cash in */}
                 <TouchableOpacity
@@ -96,11 +102,14 @@ const Financial = () => {
                 </TouchableOpacity>
               </View>
             </View>
-            <Alerts
-              status="success"
-              msg={cashSuccess}
-              setMsg={setCashSuccess}
-            />
+            {/* alert */}
+            {cashSuccess && (
+              <Alerts
+                status="success"
+                msg={cashSuccess}
+                setMsg={setCashSuccess}
+              />
+            )}
           </>
         }
         ListEmptyComponent={
@@ -111,7 +120,10 @@ const Financial = () => {
           )
         }
         contentContainerStyle={{
-          marginBottom: bottom,
+          padding: 16,
+          gap: 5,
+          paddingBottom: bottom,
+          // flexGrow: 1,
         }}
         ref={flatListRef}
         keyboardShouldPersistTaps="always"

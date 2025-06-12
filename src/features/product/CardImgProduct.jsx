@@ -11,45 +11,62 @@ const CardImgProduct = (props) => {
   const { data } = props;
   const { ProductId, ProductName, ProductPrice, ProductImg } = data;
   const [qty, setQty] = useState(0);
+  const [loading, setLoading] = useState(false);
   const loadQty = async (id) => {
-    const order = await getStorage("order");
-    const current = order.find((el) => el.ProductId === id);
-    const totals = order.reduce(
-      (sum, item) => sum + item.ProductPrice * item.ProductQty,
-      0
-    );
-    setCartSum(totals);
-    setQty(current?.ProductQty || 0);
+    setLoading(true);
+    try {
+      const order = await getStorage("order");
+      const current = order.find((el) => el.ProductId === id);
+      // summary
+      const qty = order.reduce((sum, item) => sum + item.ProductQty, 0);
+      const price = order.reduce(
+        (sum, item) => sum + item.ProductPrice * item.ProductQty,
+        0
+      );
+      setCartSum({ price, qty });
+      setQty(current?.ProductQty || 0);
+    } catch (error) {
+      throw error;
+    } finally {
+      setLoading(false);
+    }
   };
   const handleQty = async (e, id, name, price) => {
-    const order = await getStorage("order");
-    if (e === "push") {
-      const productIndex = order.findIndex((el) => el.ProductId === id);
-      if (productIndex !== -1) {
-        order[productIndex].ProductQty += 1;
-      } else {
-        order.push({
-          ProductId: id,
-          ProductName: name,
-          ProductPrice: price,
-          ProductQty: 1,
-        });
-        order.sort((a, b) => a.ProductName.localeCompare(b.ProductName));
+    setLoading(true);
+    try {
+      const order = await getStorage("order");
+      if (e === "push") {
+        const productIndex = order.findIndex((el) => el.ProductId === id);
+        if (productIndex !== -1) {
+          order[productIndex].ProductQty += 1;
+        } else {
+          order.push({
+            ProductId: id,
+            ProductName: name,
+            ProductPrice: price,
+            ProductQty: 1,
+          });
+          order.sort((a, b) => a.ProductName.localeCompare(b.ProductName));
+        }
       }
-    }
-    if (e === "pull") {
-      const productIndex = order.findIndex((el) => el.ProductId === id);
-      if (order[productIndex].ProductQty >= 1) {
-        order[productIndex].ProductQty -= 1;
+      if (e === "pull") {
+        const productIndex = order.findIndex((el) => el.ProductId === id);
+        if (order[productIndex].ProductQty >= 1) {
+          order[productIndex].ProductQty -= 1;
+        }
+        if (order[productIndex].ProductQty === 0) {
+          order.splice(productIndex, 1);
+        }
       }
-      if (order[productIndex].ProductQty === 0) {
-        order.splice(productIndex, 1);
+      await saveStorage("order", order);
+      await loadQty(id);
+      if (paymentRef.current) {
+        paymentRef.current.fadeInDown(500);
       }
-    }
-    await saveStorage("order", order);
-    await loadQty(id);
-    if (paymentRef.current) {
-      paymentRef.current.fadeInDown(500);
+    } catch (error) {
+      throw error;
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -90,19 +107,25 @@ const CardImgProduct = (props) => {
           <View className="flex flex-row gap-2">
             {/* plus */}
             <TouchableOpacity
-              className="bg-[#B67D03] w-[32px] h-[32px] flex rounded-md"
+              className={`bg-[#B67D03] w-[32px] h-[32px] flex rounded-md ${
+                loading ? "opacity-55" : "opacity-100"
+              }`}
               onPress={() =>
                 handleQty("push", ProductId, ProductName, ProductPrice)
               }
+              disabled={loading}
             >
               <Entypo name="plus" size={24} color="white" className="m-auto" />
             </TouchableOpacity>
             {/* minus */}
             <TouchableOpacity
-              className="bg-[#79756E] w-[32px] h-[32px] flex rounded-md"
+              className={`bg-[#79756E] w-[32px] h-[32px] flex rounded-md ${
+                loading ? "opacity-55" : "opacity-100"
+              }`}
               onPress={() =>
                 handleQty("pull", ProductId, ProductName, ProductPrice)
               }
+              disabled={loading}
             >
               <Entypo name="minus" size={24} color="white" className="m-auto" />
             </TouchableOpacity>

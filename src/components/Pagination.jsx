@@ -43,7 +43,7 @@ const Pagination = (props) => {
     setTrigger(true);
   };
   return (
-    <View className="flex flex-row justify-center gap-2 flex-wrap">
+    <View className="flex flex-row justify-center gap-2 flex-wrap my-3">
       {/* prev */}
       <TouchableOpacity
         className="w-[42px] h-[42px] bg-[#C6B48E] rounded-full flex"
