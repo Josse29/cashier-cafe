@@ -1,11 +1,13 @@
 import {
   capitalizeWord,
+  emailRgx,
   passwordRgx,
   usernameRgx,
   validateImg,
 } from "../utils";
 import getDB from "./db";
 import bcryptjs from "bcryptjs";
+import JWT, { SupportedAlgorithms } from "expo-jwt";
 const userSchema = async () => {
   const db = await getDB();
   await db.execAsync(`
@@ -21,6 +23,11 @@ const userSchema = async () => {
   UserInfo TEXT
   );
   `);
+  // const query1 = `
+  // DELETE
+  // FROM
+  // User `;
+  // await db.runAsync(query1);
   // const query = `
   // INSERT
   // INTO
@@ -46,8 +53,18 @@ const updateUserAPI = async (req) => {
     Minimum length Character 3 - 15 `;
     throw new Error(msg);
   }
+  // validation email
+  const isEmail = emailRgx.test(userEmail);
+  if (!isEmail) {
+    const errMsg = `Email is not Valid !`;
+    throw new Error(errMsg);
+  }
   // validation img
-  validateImg(userImg);
+  if (userImg) {
+    if (userImg.mimeType) {
+      validateImg(userImg);
+    }
+  }
   const db = await getDB();
   const query = `
   UPDATE
@@ -61,8 +78,8 @@ const updateUserAPI = async (req) => {
   WHERE UserId = 1
   `;
   await db.runAsync(query, [
-    `${userName}`,
-    `${capitalizeWord(userFullname)}`,
+    userName,
+    capitalizeWord(userFullname),
     userEmail,
     userImg,
     userInfo,
@@ -120,4 +137,43 @@ const getUserAPI = async () => {
   const user = await db.getFirstAsync(query);
   return user;
 };
-export { userSchema, updateUserAPI, getUserAPI, resetPasswordAPI };
+const loginAPI = async (req) => {
+  const { userName, userPassword } = req;
+  const db = await getDB();
+  // validation required
+  if (!userName || !userPassword) {
+    const errMsg = "Uppsss, All Input are Required !";
+    throw new Error(errMsg);
+  }
+  // vallidate existed username
+  const query = `
+  SELECT 
+  UserId,
+  UserName,
+  UserFullname,
+  UserPassword
+  FROM 
+  User
+  WHERE UserName = ?
+  `;
+  const user = await db.getFirstAsync(query, [userName]);
+  if (!user) {
+    const errMsg = `Uppsss, ${userName} is not existed !`;
+    throw new Error(errMsg);
+  }
+  // password
+  const passwordMatch = await bcryptjs.compare(userPassword, user.UserPassword);
+  if (!passwordMatch) {
+    const errMsg = "Uppsss, Password is Incorrect !";
+    throw new Error(errMsg);
+  }
+  // token
+  const payload = {
+    userId: user.UserId,
+    userName: user.UserName,
+  };
+  const key = "shh";
+  const token = JWT.encode(payload, key);
+  return { token, key };
+};
+export { userSchema, updateUserAPI, getUserAPI, loginAPI, resetPasswordAPI };

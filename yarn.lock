@@ -2573,6 +2573,11 @@ cross-spawn@^7.0.3, cross-spawn@^7.0.6:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
+crypto-js@^4.2.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-4.2.0.tgz#4d931639ecdfd12ff80e8186dba6af2c2e856631"
+  integrity sha512-KALDyEYgpY+Rlob/iriUtjV6d5Eq+Y191A5g4UqLAi8CyGP9N1+FdVbkc1SxKc2r4YAYqG8JzO2KGL+AizD70Q==
+
 crypto-random-string@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/crypto-random-string/-/crypto-random-string-1.0.0.tgz"
@@ -2908,6 +2913,13 @@ expo-image-picker@~16.1.4:
   integrity sha512-bTmmxtw1AohUT+HxEBn2vYwdeOrj1CLpMXKjvi9FKSoSbpcarT4xxI0z7YyGwDGHbrJqyyic3I9TTdP2J2b4YA==
   dependencies:
     expo-image-loader "~5.1.0"
+
+expo-jwt@^1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/expo-jwt/-/expo-jwt-1.8.2.tgz#cb78d84d35b3db7cd4f01f284be159ad940331fb"
+  integrity sha512-I2l4WTKWdzQ74ZWcLijXumo/DJltId/gVVgNHBCNsVp0KvJB9rXuXYo+zGx1GnMPsDh1Y5QeGi+W+Ym9vwZ9CQ==
+  dependencies:
+    crypto-js "^4.2.0"
 
 expo-keep-awake@~14.1.4:
   version "14.1.4"

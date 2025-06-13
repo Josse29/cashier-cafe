@@ -14,14 +14,14 @@ import {
 } from "react-native-safe-area-context";
 import { Baristaa, Logo } from "./../../src/assets";
 import { FontAwesome6, MaterialCommunityIcons } from "@expo/vector-icons";
+import { BtnLogout } from "../../src/features/user";
 
 function customerDrawerContent(props) {
-  const router = useRouter();
   const { top, bottom } = useSafeAreaInsets();
   return (
     <View>
       <View
-        className="flex justify-center items-center bg-[#964a3b] w-full h-[280px] mb-4"
+        className="justify-center items-center bg-[#964a3b] w-full h-[280px] mb-4"
         style={{ paddingTop: top }}
       >
         <Image source={Baristaa} />
@@ -29,16 +29,7 @@ function customerDrawerContent(props) {
       <View className="p-3">
         <DrawerItemList {...props} />
       </View>
-      <TouchableOpacity
-        style={{
-          borderTopWidth: 1,
-          borderTopColor: "#DBD8D2",
-          padding: 20,
-        }}
-        onPress={() => router.push("/")}
-      >
-        <Text className="font-montserratbold text-red-400 text-xl">Logout</Text>
-      </TouchableOpacity>
+      <BtnLogout />
     </View>
   );
 }

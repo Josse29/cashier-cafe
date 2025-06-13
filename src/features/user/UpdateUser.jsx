@@ -55,9 +55,16 @@ const UpdateUser = () => {
         userFullname: req.userFullname,
         userEmail: req.userEmail,
         userImg: req.img || "",
-        userInfo,
+        userInfo: req.userInfo,
       });
+      await getUser();
+      setErrMsg("");
+      setUserSuccess(updated);
     } catch (error) {
+      setUserSuccess("");
+      console.log(error.message);
+      setErrMsg(error.message);
+      throw error;
     } finally {
       setLoading(false);
     }

@@ -5,6 +5,7 @@ import { formatDate, formatDateTime } from "./dateTime";
 import delay from "./delay";
 import exportXls from "./exportExcel";
 import {
+  emailRgx,
   noNumberRgx,
   noNumberRgx1,
   numberRgx,
@@ -21,6 +22,7 @@ export {
   formatCurrency1,
   formatDate,
   formatDateTime,
+  emailRgx,
   numberRgx,
   noNumberRgx,
   noNumberRgx1,

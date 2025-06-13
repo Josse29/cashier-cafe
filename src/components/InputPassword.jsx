@@ -27,7 +27,7 @@ const InputPassword = (props) => {
       >
         <TextInput
           style={{ color }}
-          secureTextEntry={passwordVisible}
+          secureTextEntry={passwordVisible ? false : true}
           className="font-montserratbold tracking-widest rounded-md w-[90%]"
           placeholder={passwordVisible ? "password" : "******"}
           placeholderTextColor={color}
@@ -35,7 +35,7 @@ const InputPassword = (props) => {
         />
         <TouchableOpacity onPress={() => setPasswordVisible(!passwordVisible)}>
           <Entypo
-            name={passwordVisible ? "eye-with-line" : "eye"}
+            name={passwordVisible ? "eye" : "eye-with-line"}
             size={25}
             color={color}
           />

@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// storage  = 1.order 2.sum 3.jsonwebtoken
+// storage  = 1.order 2.auth
 
 const saveStorage = async (key, value) => {
   await AsyncStorage.setItem(key, JSON.stringify(value));
