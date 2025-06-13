@@ -27,6 +27,7 @@ const CreateProduct = () => {
   const [errMsg, setErrMsg] = useState("");
   const handleCreate = async () => {
     setLoading(true);
+    setProductSuccess("");
     try {
       const { productName, productPrice, img, productInfo } = req;
       const created = await createProductAPI({
@@ -50,7 +51,7 @@ const CreateProduct = () => {
     <View className="flex-1 bg-white">
       <ScrollView
         ref={scrollViewRef}
-        keyboardShouldPersistTaps="always"
+        keyboardShouldPersistTaps="handled"
         contentContainerStyle={{ padding: 15 }}
       >
         {/* alert error */}
@@ -96,7 +97,9 @@ const CreateProduct = () => {
       {/* button create */}
       <View
         className="p-4 border-t border-t-[#d1c6c4] bg-white"
-        style={{ paddingBottom: isKeyboardVisible ? bottom + 60 : bottom + 20 }}
+        style={{
+          paddingBottom: isKeyboardVisible ? bottom + top * 2 : bottom + 20,
+        }}
       >
         <TouchableOpacity
           className="bg-[#964a3b] px-4 py-3 rounded-md"

@@ -24,7 +24,7 @@ const SearchProduct = (props) => {
   };
   return (
     <View
-      className="bg-[#ECDEBB] rounded-md flex flex-row justify-between items-center px-3 mb-5"
+      className="bg-[#ECDEBB] rounded-md flex flex-row justify-between items-center px-3 mb-3"
       // onPress={() => {}}
     >
       <TextInput

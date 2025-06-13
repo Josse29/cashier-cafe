@@ -90,11 +90,7 @@ const DrawerLayout = () => {
             drawerLabel: "Financial",
             title: "Financial",
             drawerIcon: ({ size, color }) => (
-              <MaterialCommunityIcons
-                name="finance"
-                size={size}
-                color={color}
-              />
+              <Entypo name="wallet" size={size} color={color} />
             ),
           }}
         />

@@ -72,8 +72,11 @@ const createCashAPI = async (req) => {
 const getCashAPI = async () => {
   const db = await getDB();
   const query = `
-  SELECT * FROM Cash
-  ORDER BY CashDate DESC, CashTime DESC
+  SELECT 
+  * 
+  FROM Cash
+  ORDER BY CashDate DESC, 
+           CashTime DESC
   `;
   const data = await db.getAllAsync(query);
   const query1 = `
@@ -83,4 +86,20 @@ const getCashAPI = async () => {
   const { CashSum } = await db.getFirstAsync(query1);
   return { CashSum, data };
 };
-export { cashSchema, createCashAPI, getCashAPI };
+const deleteCashAPI = async () => {
+  const db = await getDB();
+  const query = `
+  DELETE 
+  FROM Cash
+  WHERE CashId IN (
+    SELECT CashId FROM Cash
+    ORDER BY CashDate DESC, 
+             CashTime DESC
+    LIMIT 1
+  ) 
+  `;
+  await db.runAsync(query);
+  const deleted = `Cash Last Transaction Has Been Deleted ! `;
+  return deleted;
+};
+export { cashSchema, createCashAPI, getCashAPI, deleteCashAPI };

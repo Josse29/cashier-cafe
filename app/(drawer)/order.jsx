@@ -15,22 +15,21 @@ import {
   Spinner,
 } from "../../src/components";
 import * as Animatable from "react-native-animatable";
-import { router } from "expo-router";
-import { delay } from "../../src/utils";
 
 const Order = () => {
   const {
+    productSuccess,
     paymentRef,
     cartSum,
     isKeyboardVisible,
     orderSuccess,
     setOrderSuccess,
+    orderRef,
   } = useContext(AllContext);
-  const { bottom } = useSafeAreaInsets();
+  const { top, bottom } = useSafeAreaInsets();
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
-  const flatListRef = useRef(null);
   const [req, setReq] = useState({
     search: "",
     limit: 10,
@@ -47,7 +46,7 @@ const Order = () => {
       throw error;
     } finally {
       // await delay(200);
-      flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
+      orderRef.current?.scrollToOffset({ animated: true, offset: 0 });
       setLoading(false);
     }
   };
@@ -55,12 +54,12 @@ const Order = () => {
     getProduct(req);
   }, []);
   useEffect(() => {
-    if (orderSuccess) {
+    if (productSuccess) {
       getProduct(req);
     }
-  }, [orderSuccess]);
+  }, [productSuccess]);
   return (
-    <View className="bg-white h-screen" style={{ paddingBottom: bottom }}>
+    <View className="flex-1 bg-white" style={{ paddingBottom: bottom }}>
       <KeyboardAvoidingComponent>
         <FlatList
           data={loading ? [{}] : product}
@@ -74,10 +73,10 @@ const Order = () => {
           keyExtractor={(item, index) =>
             item?.ProductId?.toString() || index.toString()
           }
-          ref={flatListRef}
+          ref={orderRef}
           keyboardShouldPersistTaps="handled"
           ListHeaderComponent={
-            <>
+            <View className="mb-3">
               <SearchProduct
                 getAPI={getProduct}
                 setReq={setReq}
@@ -92,7 +91,7 @@ const Order = () => {
                   setMsg={setOrderSuccess}
                 />
               )}
-            </>
+            </View>
           }
           ListFooterComponent={
             !loading &&
@@ -116,7 +115,7 @@ const Order = () => {
             )
           }
           contentContainerStyle={{
-            padding: 16,
+            padding: 15,
           }}
         />
         {/* btnPayment */}
@@ -124,12 +123,12 @@ const Order = () => {
           <Animatable.View
             animation="fadeInDown"
             duration={500}
-            ref={paymentRef}
+            // ref={paymentRef}
           >
             <View
               className="px-3"
               style={{
-                paddingBottom: isKeyboardVisible ? bottom * 3 : bottom,
+                paddingBottom: isKeyboardVisible ? bottom * 3 : 10,
               }}
             >
               <BtnPayment />

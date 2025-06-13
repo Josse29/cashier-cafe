@@ -3,18 +3,32 @@ import capitalizeWord from "./capitalize";
 import { formatCurrency, formatCurrency1, unFormatCurrency } from "./currency";
 import { formatDate, formatDateTime } from "./dateTime";
 import delay from "./delay";
-import { numberRgx } from "./regex";
-import { validateProduct } from "./validate";
+import exportXls from "./exportExcel";
+import {
+  noNumberRgx,
+  noNumberRgx1,
+  numberRgx,
+  usernameRgx,
+  passwordRgx,
+} from "./regex";
+import { validateProduct, validateImg } from "./validate";
+
 export {
   capitalizeWord,
   delay,
+  exportXls,
   formatCurrency,
   formatCurrency1,
   formatDate,
   formatDateTime,
   numberRgx,
+  noNumberRgx,
+  noNumberRgx1,
+  usernameRgx,
+  passwordRgx,
   unFormatCurrency,
   validateProduct,
+  validateImg,
   saveStorage,
   getStorage,
   removeStorage,

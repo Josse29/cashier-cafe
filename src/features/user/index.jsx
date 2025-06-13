@@ -1,3 +1,5 @@
 import FormLogin from "./FormLogin";
+import ResetPassword from "./ResetPassword";
+import UpdateUser from "./UpdateUser";
 
-export { FormLogin };
+export { FormLogin, UpdateUser, ResetPassword };

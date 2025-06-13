@@ -1,6 +1,22 @@
 import capitalizeWord from "./capitalize";
 import { numberRgx } from "./regex";
 
+const validateImg = (img) => {
+  // 1.validation extension
+  const validateExt = img.mimeType.startsWith("image");
+  if (!validateExt) {
+    const errMsg = "Uppsss, It's not Image";
+    throw new Error(errMsg);
+  }
+  // 2. validation base64
+  const base64Length = img.base64.length;
+  const sizeInBytes = 4 * Math.ceil(base64Length / 3) * 0.5624896334383812;
+  const sizeInMB = sizeInBytes / (1024 * 1024);
+  if (sizeInMB > 1) {
+    const errMsg = "Uppsss, Maximize file Image = 1 MB";
+    throw new Error(errMsg);
+  }
+};
 const validateProduct = async (db, req) => {
   const { productId, productName, productPrice, productImg } = req;
   // validation requirement
@@ -27,7 +43,7 @@ const validateProduct = async (db, req) => {
     ProductName = ? `;
     const { totalProduct } = await db.getFirstAsync(query, [
       parseInt(productId),
-      `%${capitalizeWord(productName)}%`,
+      capitalizeWord(productName),
     ]);
     TotalProduct = totalProduct;
   }
@@ -40,7 +56,7 @@ const validateProduct = async (db, req) => {
     WHERE 
     ProductName = ?`;
     const { totalProduct } = await db.getFirstAsync(query, [
-      `%${capitalizeWord(productName)}%`,
+      capitalizeWord(productName),
     ]);
     TotalProduct = totalProduct;
   }
@@ -49,20 +65,10 @@ const validateProduct = async (db, req) => {
     throw new Error(msg);
   }
   // validate image
-  if (productImg.mimeType && productImg.base64) {
-    const validateExt = productImg.mimeType.startsWith("image");
-    if (!validateExt) {
-      const errMsg = "Uppsss, It's not Image";
-      throw new Error(errMsg);
-    }
-    // 2. validation
-    const base64Length = productImg.base64.length;
-    const sizeInBytes = 4 * Math.ceil(base64Length / 3) * 0.5624896334383812;
-    const sizeInMB = sizeInBytes / (1024 * 1024);
-    if (sizeInMB > 1) {
-      const errMsg = "Uppsss, Maximize file Image = 1 MB";
-      throw new Error(errMsg);
+  if (productImg) {
+    if (productImg.mimeType) {
+      validateImg(productImg);
     }
   }
 };
-export { validateProduct };
+export { validateProduct, validateImg };

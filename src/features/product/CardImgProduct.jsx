@@ -7,7 +7,7 @@ import { TxtTruncate } from "../../components";
 import { AllContext } from "../../context/AllProvider";
 
 const CardImgProduct = (props) => {
-  const { setCartSum, paymentRef } = useContext(AllContext);
+  const { setCartSum, paymentRef, orderSuccess } = useContext(AllContext);
   const { data } = props;
   const { ProductId, ProductName, ProductPrice, ProductImg } = data;
   const [qty, setQty] = useState(0);
@@ -72,6 +72,11 @@ const CardImgProduct = (props) => {
   useEffect(() => {
     loadQty(ProductId);
   }, []);
+  useEffect(() => {
+    if (orderSuccess) {
+      loadQty(ProductId);
+    }
+  }, [orderSuccess]);
   return (
     <View
       className="flex flex-row w-full mb-5 bg-white min-h-[150px]"

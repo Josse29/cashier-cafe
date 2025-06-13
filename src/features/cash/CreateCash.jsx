@@ -101,11 +101,13 @@ const CreateCash = (props) => {
       </ScrollView>
       <View
         className="p-4 border-t border-t-[#d1c6c4]"
-        style={{ paddingBottom: isKeyboardVisible ? bottom + 60 : bottom + 20 }}
+        style={{
+          paddingBottom: isKeyboardVisible ? bottom + top * 2 : bottom + 20,
+        }}
       >
         <TouchableOpacity
           className="bg-[#964a3b] px-4 py-3 rounded-md"
-          // disabled={loading}
+          disabled={loading}
           onPress={handleCreate}
         >
           <Text className="text-white font-montserratbold text-center text-2xl">

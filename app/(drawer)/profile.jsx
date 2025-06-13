@@ -1,19 +1,13 @@
-import { View, Text, Button, ScrollView, ToastAndroid } from "react-native";
 import React from "react";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { View, Text, Button, ScrollView, ToastAndroid } from "react-native";
+import { KeyboardAvoidingComponent } from "../../src/components";
+import { UpdateUser } from "../../src/features/user";
 
 const Profile = () => {
-  const { bottom } = useSafeAreaInsets();
-  const showToast = () => {};
   return (
-    <SafeAreaView style={{ paddingBottom: bottom }}>
-      <ScrollView>
-        <Button title="Show toast" onPress={showToast} />
-      </ScrollView>
-    </SafeAreaView>
+    <KeyboardAvoidingComponent>
+      <UpdateUser />
+    </KeyboardAvoidingComponent>
   );
 };
 

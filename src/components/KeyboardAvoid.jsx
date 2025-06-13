@@ -33,18 +33,9 @@ const KeyboardAvoidingComponent = ({ children }) => {
       style={{ flex: 1 }}
       keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 0}
     >
-      {/* <TouchableWithoutFeedback onPress={Keyboard.dismiss}> */}
       {children}
-      {/* </TouchableWithoutFeedback> */}
     </KeyboardAvoidingView>
   );
 };
-
-const styles = StyleSheet.create({
-  // inner: {
-  //   flex: 1,
-  //   backgroundColor: "white",
-  // },
-});
 
 export default KeyboardAvoidingComponent;

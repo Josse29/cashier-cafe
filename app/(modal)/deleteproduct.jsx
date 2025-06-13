@@ -4,7 +4,7 @@ import { DeleteProduct } from "../../src/features/product";
 
 const ModalDeleteProduct = () => {
   return (
-    <View>
+    <View className="h-screen">
       <DeleteProduct />
     </View>
   );

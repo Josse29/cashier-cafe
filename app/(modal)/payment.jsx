@@ -26,7 +26,7 @@ const Payment = () => {
   }, []);
   return (
     <KeyboardAvoidingComponent>
-      <View className="bg-white h-full">
+      <View className="bg-white flex-1">
         <FlatList
           data={loading ? [{}] : order}
           renderItem={({ item }) =>
@@ -53,7 +53,7 @@ const Payment = () => {
           <View
             className="items-end my-2 p-5"
             style={{
-              paddingBottom: isKeyboardVisible ? bottom + 70 : bottom + 20,
+              paddingBottom: isKeyboardVisible ? bottom + top * 2 : bottom + 20,
             }}
           >
             <CreateCash1 />

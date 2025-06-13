@@ -48,9 +48,6 @@ const UpdateProduct = () => {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    getProductId();
-  }, [ProductId]);
   const handleUpdate = async () => {
     setLoading(true);
     setProductSuccess("");
@@ -60,7 +57,7 @@ const UpdateProduct = () => {
         productId,
         productName,
         productPrice: unFormatCurrency(productPrice),
-        productImg: img,
+        productImg: img || "",
         productInfo,
       });
       setProductSuccess(res);
@@ -73,6 +70,10 @@ const UpdateProduct = () => {
       setLoading(false);
     }
   };
+  useEffect(() => {
+    getProductId();
+  }, [ProductId]);
+
   return (
     <View className="flex-1 bg-white">
       {loading && (
@@ -87,7 +88,7 @@ const UpdateProduct = () => {
         <>
           <ScrollView
             ref={scrollViewRef}
-            keyboardShouldPersistTaps="always"
+            keyboardShouldPersistTaps="handled"
             contentContainerStyle={{ padding: 15 }}
           >
             {/* alert error */}

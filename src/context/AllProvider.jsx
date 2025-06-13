@@ -8,6 +8,9 @@ export const AllProvider = ({ children }) => {
   const [orderSuccess, setOrderSuccess] = useState("");
   const paymentRef = useRef(null);
   const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+  const orderRef = useRef(null);
+  const financialRef = useRef(null);
+  const [userSuccess, setUserSuccess] = useState("");
   return (
     <AllContext.Provider
       value={{
@@ -22,6 +25,10 @@ export const AllProvider = ({ children }) => {
         setKeyboardVisible,
         orderSuccess,
         setOrderSuccess,
+        financialRef,
+        orderRef,
+        userSuccess,
+        setUserSuccess,
       }}
     >
       {children}

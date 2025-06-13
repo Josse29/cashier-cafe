@@ -1,13 +1,8 @@
 import { View, Text, TouchableOpacity, FlatList } from "react-native";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { formatCurrency1 } from "./../../src/utils";
-import {
-  Entypo,
-  FontAwesome5,
-  Fontisto,
-  MaterialIcons,
-} from "@expo/vector-icons";
+import { delay, formatCurrency1 } from "./../../src/utils";
+import { Entypo } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Alerts, Spinner, TxtTruncate } from "../../src/components";
 import { AllContext } from "../../src/context/AllProvider";
@@ -15,8 +10,8 @@ import { getCashAPI } from "../../src/services/cash";
 import { BtnExportExcel, ListCash } from "../../src/features/cash";
 
 const Financial = () => {
-  const { cashSuccess, setCashSuccess, orderSuccess } = useContext(AllContext);
-  const { bottom } = useSafeAreaInsets();
+  const { cashSuccess, setCashSuccess, financialRef } = useContext(AllContext);
+  const { top, bottom } = useSafeAreaInsets();
   const [loading, setLoading] = useState(false);
   const [cashTotal, setCashTotal] = useState(0);
   const [cash, setCash] = useState([]);
@@ -26,10 +21,11 @@ const Financial = () => {
       const { CashSum, data } = await getCashAPI();
       setCashTotal(CashSum);
       setCash(data);
-      flatListRef.current?.scrollToOffset({ animated: true, offset: 0 });
     } catch (error) {
       throw error;
     } finally {
+      await delay(100);
+      financialRef.current?.scrollToOffset({ animated: true, offset: 0 });
       setLoading(false);
     }
   };
@@ -37,18 +33,22 @@ const Financial = () => {
     if (cashSuccess) {
       getCash();
     }
-  }, [cashSuccess, orderSuccess]);
+  }, [cashSuccess]);
   useEffect(() => {
     getCash();
   }, []);
-  const flatListRef = useRef(null);
+
   return (
-    <View className="bg-white h-screen" style={{ paddingBottom: bottom }}>
+    <View className="bg-white flex-1" style={{ paddingBottom: bottom }}>
       {/* history */}
       <FlatList
         data={loading ? [{}] : cash}
-        renderItem={({ item }) =>
-          loading ? <Spinner /> : cash.length >= 1 && <ListCash data={item} />
+        renderItem={({ item, index }) =>
+          loading ? (
+            <Spinner />
+          ) : (
+            cash.length >= 1 && <ListCash data={item} index={index} />
+          )
         }
         keyExtractor={(item, index) =>
           item?.ProductId?.toString() || index.toString()
@@ -125,7 +125,7 @@ const Financial = () => {
           paddingBottom: bottom,
           // flexGrow: 1,
         }}
-        ref={flatListRef}
+        ref={financialRef}
         keyboardShouldPersistTaps="always"
       />
     </View>

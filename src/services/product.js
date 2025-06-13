@@ -113,7 +113,7 @@ const deleteProductId = async (id, productName) => {
   FROM
   Product 
   WHERE ProductId = ?`;
-  await db.runAsync(query, [[parseInt(id)]]);
+  await db.runAsync(query, [parseInt(id)]);
   const msg = `${capitalizeWord(productName)} - Has Been Deleted`;
   return msg;
 };

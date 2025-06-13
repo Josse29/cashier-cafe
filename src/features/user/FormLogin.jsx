@@ -1,8 +1,16 @@
 import React, { useContext, useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { AllContext } from "../../context/AllProvider";
+
 const FormLogin = (props) => {
   const { loading, setLoading } = useContext(AllContext);
   const router = useRouter();
@@ -14,6 +22,7 @@ const FormLogin = (props) => {
           Login
         </Text>
       </View>
+
       <View className="bg-[#6c3227] p-6 rounded-lg w-[85%]">
         {/* username */}
         <View>
@@ -26,7 +35,7 @@ const FormLogin = (props) => {
         <View className="flex flex-row justify-between items-center mb-6 bg-white px-3 rounded-md">
           <TextInput
             secureTextEntry={passwordVisible}
-            className="font-montserratextrabold tracking-widest rounded-md w-[90%]"
+            className="font-montserratextrabold tracking-widest w-[90%]"
             placeholder="Password :"
           />
           <TouchableOpacity
@@ -39,6 +48,7 @@ const FormLogin = (props) => {
             />
           </TouchableOpacity>
         </View>
+        {/* button */}
         <TouchableOpacity
           className={`bg-[#d8ac28] py-3 ${
             loading ? "cursor-not-allowed" : "cursor-pointer"

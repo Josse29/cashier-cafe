@@ -3,6 +3,7 @@ import { createCashAPI } from "../../services/cash";
 import React, { useContext, useState } from "react";
 import { Entypo } from "@expo/vector-icons";
 import {
+  delay,
   formatCurrency1,
   getStorage,
   removeStorage,
@@ -12,7 +13,8 @@ import { AllContext } from "../../context/AllProvider";
 import { router } from "expo-router";
 
 const CreateCash1 = () => {
-  const { cartSum, setOrderSuccess, setCashSuccess } = useContext(AllContext);
+  const { cartSum, setOrderSuccess, setCashSuccess, orderRef, financialRef } =
+    useContext(AllContext);
   const [loading, setLoading] = useState(false);
   const handleCreate = async () => {
     const order = await getStorage("order");
@@ -22,15 +24,17 @@ const CreateCash1 = () => {
     try {
       for (const el of order) {
         const req = {
-          cashName: `${el.ProductName} - Qty : ${el.ProductQty} Has Been Sold`,
-          cashBalance: el.ProductPrice,
+          cashName: `${el.ProductName} + ${el.ProductQty}`,
+          cashBalance: el.ProductPrice * el.ProductQty,
           cashInfo: "Order Product",
         };
         await createCashAPI(req);
       }
       await removeStorage("order");
       setCashSuccess("Order has been Done !");
-      setOrderSuccess(`Order has been Done !`);
+      setOrderSuccess("Order has been Done !");
+      await delay(100);
+      orderRef.current?.scrollToOffset({ animated: true, offset: 0 });
       router.back();
     } catch (error) {
       throw error;

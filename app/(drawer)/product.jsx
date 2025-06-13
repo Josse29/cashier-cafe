@@ -58,7 +58,7 @@ const Product = () => {
     }
   }, [productSuccess]);
   return (
-    <View className="bg-white h-screen" style={{ paddingBottom: bottom }}>
+    <View className="bg-white flex-1" style={{ paddingBottom: bottom }}>
       <KeyboardAvoidingComponent>
         <FlatList
           data={loading ? [{}] : product}
@@ -78,6 +78,7 @@ const Product = () => {
               <TouchableOpacity
                 className="bg-[#B67D03] flex flex-row items-center self-start rounded-lg px-4 mb-5"
                 onPress={() => router.push("/(modal)/createproduct")}
+                disabled={loading}
               >
                 <FontAwesome name="plus" size={24} color="white" />
                 <Text className="p-3 text-white font-montserratbold text-2xl">
@@ -111,7 +112,7 @@ const Product = () => {
           ListFooterComponent={
             !loading &&
             product.length >= 1 && (
-              <View style={{ paddingBottom: bottom + 40, marginVertical: 12 }}>
+              <View style={{ marginVertical: 12 }}>
                 <BtnPageProduct
                   totalPage={totalPage}
                   req={req}

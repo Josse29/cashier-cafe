@@ -60,6 +60,12 @@ const Layout = () => {
           headerTitle: "Cash Out",
         }}
       />
+      <Stack.Screen
+        name="resetpassword"
+        options={{
+          headerTitle: "Reset Password",
+        }}
+      />
     </Stack>
   );
 };
