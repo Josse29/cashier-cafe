@@ -2,30 +2,17 @@ import React from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Drawer } from "expo-router/drawer";
 import Entypo from "@expo/vector-icons/Entypo";
-import {
-  DrawerContentScrollView,
-  DrawerItemList,
-} from "@react-navigation/drawer";
-import { useRouter } from "expo-router";
-import { View, Text, Image, TouchableOpacity } from "react-native";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
-import { Baristaa, Logo } from "./../../src/assets";
-import { FontAwesome6, MaterialCommunityIcons } from "@expo/vector-icons";
-import { BtnLogout } from "../../src/features/user";
+import { DrawerItemList } from "@react-navigation/drawer";
+import { View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
+import { FontAwesome6 } from "@expo/vector-icons";
+import { BtnLogout, ImgUser } from "../../src/features/user";
 
 function customerDrawerContent(props) {
-  const { top, bottom } = useSafeAreaInsets();
   return (
     <View>
-      <View
-        className="justify-center items-center bg-[#964a3b] w-full h-[280px] mb-4"
-        style={{ paddingTop: top }}
-      >
-        <Image source={Baristaa} />
-      </View>
+      <ImgUser />
       <View className="p-3">
         <DrawerItemList {...props} />
       </View>

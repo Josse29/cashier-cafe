@@ -14,24 +14,21 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 
 const UpdateUser = () => {
-  const { isKeyboardVisible, userSuccess, setUserSuccess } =
-    useContext(AllContext);
+  const {
+    isKeyboardVisible,
+    userSuccess,
+    setUserSuccess,
+    reqUser,
+    setReqUser,
+  } = useContext(AllContext);
   const { top, bottom } = useSafeAreaInsets();
   const [loading, setLoading] = useState(false);
-  const [req, setReq] = useState({
-    userId: 0,
-    userName: "",
-    userFullname: "",
-    userEmail: "",
-    img: "",
-    userInfo: "",
-  });
   const scrollViewRef = useRef(null);
   const getUser = async () => {
     setLoading(true);
     try {
       const users = await getUserAPI();
-      setReq({
+      setReqUser({
         userId: users.UserId,
         userName: users.UserName,
         userFullname: users.UserFullname,
@@ -51,11 +48,11 @@ const UpdateUser = () => {
     setLoading(true);
     try {
       const updated = await updateUserAPI({
-        userName: req.userName,
-        userFullname: req.userFullname,
-        userEmail: req.userEmail,
-        userImg: req.img || "",
-        userInfo: req.userInfo,
+        userName: reqUser.userName,
+        userFullname: reqUser.userFullname,
+        userEmail: reqUser.userEmail,
+        userImg: reqUser.img || "",
+        userInfo: reqUser.userInfo,
       });
       await getUser();
       setErrMsg("");
@@ -111,54 +108,54 @@ const UpdateUser = () => {
               title="Username :"
               color="#964a3b"
               placeholder="ex : josse112"
-              value={req.userName}
               field="userName"
-              req={req}
-              setReq={setReq}
+              value={reqUser.userName}
+              req={reqUser}
+              setReq={setReqUser}
             />
             {/* UserFullname */}
             <InputTxt
               title="Fullname :"
               color="#964a3b"
               placeholder="ex : josse112"
-              value={req.userFullname}
               field="userFullname"
-              req={req}
-              setReq={setReq}
+              value={reqUser.userFullname}
+              req={reqUser}
+              setReq={setReqUser}
             />
             {/* UserEmail */}
             <InputTxt
               title="Email :"
               color="#964a3b"
               placeholder="ex : pinemjosse@gmail.com"
-              value={req.userEmail}
               field="userEmail"
-              req={req}
-              setReq={setReq}
+              value={reqUser.userEmail}
+              req={reqUser}
+              setReq={setReqUser}
             />
             {/* UserImg */}
             <InputImg
               title="Photo :"
               color="#964a3b"
-              req={req}
-              setReq={setReq}
               setLoading={setLoading}
+              req={reqUser}
+              setReq={setReqUser}
             />
             {/* information */}
             <InputTxtMulti
               color="#964a3b"
-              req={req}
-              setReq={setReq}
               field="userInfo"
-              value={req.userInfo}
               placeholder="ex : desc your bussiness detail....."
+              req={reqUser}
+              setReq={setReqUser}
+              value={reqUser.userInfo}
             />
           </ScrollView>
           {/* button update */}
           <View
             className="p-4 border-t border-t-[#d1c6c4] bg-white"
             style={{
-              paddingBottom: isKeyboardVisible ? bottom + 60 : bottom + 20,
+              paddingBottom: isKeyboardVisible ? bottom + top * 2 : bottom + 10,
             }}
           >
             <TouchableOpacity

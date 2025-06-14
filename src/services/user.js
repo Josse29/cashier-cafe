@@ -23,18 +23,13 @@ const userSchema = async () => {
   UserInfo TEXT
   );
   `);
-  // const query1 = `
-  // DELETE
-  // FROM
-  // User `;
-  // await db.runAsync(query1);
   // const query = `
   // INSERT
   // INTO
   // User
   // (UserName, UserPassword, UserFullname, UserEmail, UserImg, UserInfo)
   // VALUES
-  // ("josse112", "billionaireWFA100%", "Josse Surya Pinem", "pinemjosse@gmail.com", "", "")
+  // ("josse", "billionaireWFA100%", "Josse Surya Pinem", "pinemjosse@gmail.com", "", "")
   // `;
   // await db.runAsync(query);
 };
@@ -47,10 +42,8 @@ const updateUserAPI = async (req) => {
   // validation username
   const isValidUserName = usernameRgx.test(userName);
   if (!isValidUserName) {
-    const msg = `
-    Requirement Username
-    Only contain Alphabet, Number, Without Space 
-    Minimum length Character 3 - 15 `;
+    const msg =
+      "Requirement Username : Only contain Alphabet, Number, Without Space, Minimum length Character 3 - 15 ";
     throw new Error(msg);
   }
   // validation email
@@ -81,7 +74,7 @@ const updateUserAPI = async (req) => {
     userName,
     capitalizeWord(userFullname),
     userEmail,
-    userImg,
+    userImg.base64,
     userInfo,
   ]);
   const msg = `User Has been Updated !`;

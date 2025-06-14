@@ -12,19 +12,15 @@ export const AllProvider = ({ children }) => {
   const orderRef = useRef(null);
   const financialRef = useRef(null);
   const [userSuccess, setUserSuccess] = useState("");
+  const [reqUser, setReqUser] = useState({
+    userId: 0,
+    userName: "",
+    userFullname: "",
+    userEmail: "",
+    img: "",
+    userInfo: "",
+  });
   // protected
-  const pathname = usePathname();
-  const protectedRoute = async () => {
-    const user = await getStorage("auth");
-    if (user) {
-      const { token, key } = user;
-      const user = JWT.decode(token, key);
-      console.log(user);
-    }
-  };
-  useEffect(() => {
-    protectedRoute();
-  }, [pathname]);
   return (
     <AllContext.Provider
       value={{
@@ -43,6 +39,8 @@ export const AllProvider = ({ children }) => {
         orderRef,
         userSuccess,
         setUserSuccess,
+        reqUser,
+        setReqUser,
       }}
     >
       {children}
