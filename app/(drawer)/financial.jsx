@@ -51,7 +51,7 @@ const Financial = () => {
           )
         }
         keyExtractor={(item, index) =>
-          item?.ProductId?.toString() || index.toString()
+          item?.CashId?.toString() || index.toString()
         }
         ListHeaderComponent={
           <>

@@ -10,6 +10,7 @@ import bcryptjs from "bcryptjs";
 import JWT, { SupportedAlgorithms } from "expo-jwt";
 const userSchema = async () => {
   const db = await getDB();
+  await db.execAsync("DROP TABLE User");
   await db.execAsync(`
   CREATE 
   TABLE IF NOT EXISTS 
@@ -23,15 +24,31 @@ const userSchema = async () => {
   UserInfo TEXT
   );
   `);
-  // const query = `
-  // INSERT
-  // INTO
-  // User
-  // (UserName, UserPassword, UserFullname, UserEmail, UserImg, UserInfo)
-  // VALUES
-  // ("josse", "billionaireWFA100%", "Josse Surya Pinem", "pinemjosse@gmail.com", "", "")
-  // `;
-  // await db.runAsync(query);
+  const query = `
+  SELECT COUNT(*)  AS TotalUser FROM User
+  `;
+  const { TotalUser } = await db.getFirstAsync(query);
+  if (TotalUser === 0) {
+    // hashingPassword
+    bcryptjs.setRandomFallback((len) => {
+      const buf = new Uint8Array(len);
+      for (let i = 0; i < len; i++) {
+        buf[i] = Math.floor(Math.random() * 256);
+      }
+      return buf;
+    });
+    const salt = await bcryptjs.genSalt(10);
+    const hashedPassword = await bcryptjs.hash("billionaireWFA100%", salt);
+    const query = `
+    INSERT
+    INTO
+    User
+    (UserName, UserPassword, UserFullname, UserEmail, UserImg, UserInfo)
+    VALUES
+    ("josse", "${hashedPassword}", "Josse Surya Pinem", "pinemjosse@gmail.com", "", "")
+    `;
+    await db.runAsync(query);
+  }
 };
 const updateUserAPI = async (req) => {
   const { userName, userFullname, userEmail, userImg, userInfo } = req;
@@ -125,7 +142,14 @@ const resetPasswordAPI = async (req) => {
 const getUserAPI = async () => {
   const db = await getDB();
   const query = `
-  SELECT * FROM User
+  SELECT
+  UserId,
+  UserName,
+  UserFullname,
+  UserEmail,
+  UserImg,
+  UserInfo 
+  FROM User
   `;
   const user = await db.getFirstAsync(query);
   return user;

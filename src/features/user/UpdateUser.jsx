@@ -83,12 +83,20 @@ const UpdateUser = () => {
             keyboardShouldPersistTaps="handled"
             contentContainerStyle={{ padding: 15 }}
           >
-            {/* alert */}
-            <Alerts
-              status="success"
-              msg={userSuccess}
-              setMsg={setUserSuccess}
-            />
+            {/* alert success or error */}
+            {userSuccess ||
+              (errMsg && (
+                <View>
+                  {/* alert */}
+                  <Alerts
+                    status="success"
+                    msg={userSuccess}
+                    setMsg={setUserSuccess}
+                  />
+                  {/* alert */}
+                  <Alerts status="error" msg={errMsg} setMsg={setErrMsg} />
+                </View>
+              ))}
             {/* alert */}
             <Alerts status="error" msg={errMsg} setMsg={setErrMsg} />
             {/* reset password */}

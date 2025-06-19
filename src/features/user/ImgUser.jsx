@@ -16,7 +16,6 @@ const ImgUser = () => {
       }));
     } catch (error) {
       throw error;
-    } finally {
     }
   };
   useEffect(() => {
@@ -24,8 +23,8 @@ const ImgUser = () => {
   }, []);
   return (
     <View
-      className="justify-center items-center bg-[#964a3b] w-full h-[200px]"
-      style={{ paddingVertical: top * 4.5 }}
+      className="justify-center items-center bg-[#964a3b] w-full p-7"
+      style={{ paddingTop: top + 10 }}
     >
       <Image
         source={

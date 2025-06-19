@@ -23,7 +23,7 @@ const InputTxt = (props) => {
       </Text>
       <TextInput
         className={`bg-white font-montserratbold rounded-lg px-3 border focus:border-2 ${
-          field !== "username" && "capitalize"
+          field !== "userName" && "capitalize"
         }}`}
         style={{ color, borderColor: color }}
         placeholderTextColor={`${color}`}

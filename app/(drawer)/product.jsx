@@ -105,7 +105,7 @@ const Product = () => {
           ListEmptyComponent={
             !loading && (
               <Text className="text-center text-[#856c3e] font-montserratsemibolditalic text-2xl my-5">
-                Product kosong...
+                Product is Empty...
               </Text>
             )
           }

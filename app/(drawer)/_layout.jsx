@@ -21,6 +21,7 @@ function customerDrawerContent(props) {
   );
 }
 const DrawerLayout = () => {
+  const { top } = useSafeAreaInsets();
   return (
     <GestureHandlerRootView>
       <Drawer

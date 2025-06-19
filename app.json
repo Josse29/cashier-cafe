@@ -21,63 +21,19 @@
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.jossedev.cashiercafe"
     },
     "web": {
       "bundler": "metro",
       "favicon": "./src/assets/favicon.png"
     },
-    "plugins": [
-      "expo-router",
-      [
-        "expo-font",
-        {
-          "fonts": ["./assets/fonts/Montserrat-Regular.ttf"],
-          "android": {
-            "fonts": [
-              {
-                "fontFamily": "Montserrat",
-                "fontDefinitions": [
-                  {
-                    "path": "./assets/fonts/Montserrat-Bold.ttf"
-                    // "weight": 700,
-                    // "style": "italic"
-                  },
-                  {
-                    "path": "./assets/fonts/Montserrat-ExtraBold.ttf"
-                    // "weight": 700
-                  }
-                ]
-              }
-            ]
-          },
-          "ios": {
-            "fonts": [
-              "./assets/fonts/Montserrat-Regular.ttf",
-              "./assets/fonts/Montserrat-Bold.ttf",
-              "./assets/fonts/Montserrat-ExtraBold.ttf"
-            ]
-          }
-        }
-      ],
-      [
-        "expo-sqlite",
-        {
-          "enableFTS": true,
-          "useSQLCipher": true,
-          "android": {
-            // Override the shared configuration for Android
-            "enableFTS": false,
-            "useSQLCipher": false
-          },
-          "ios": {
-            // You can also override the shared configurations for iOS
-            "customBuildFlags": [
-              "-DSQLITE_ENABLE_DBSTAT_VTAB=1 -DSQLITE_ENABLE_SNAPSHOT=1"
-            ]
-          }
-        }
-      ]
-    ]
+    "plugins": ["expo-router"],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "ed7b0a36-9545-4fe9-9d99-2623f6a2074e"
+      }
+    }
   }
 }

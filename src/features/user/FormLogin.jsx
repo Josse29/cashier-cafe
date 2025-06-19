@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { Entypo } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { AllContext } from "../../context/AllProvider";
 import Alerts from "../../components/Alerts";
 import { loginAPI } from "../../services/user";
 import JWT from "expo-jwt";
