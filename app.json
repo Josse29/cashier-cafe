@@ -9,7 +9,7 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./src/assets/splash-icon.png",
+      "image": "./src/assets/img/icon-app.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -18,8 +18,8 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./src/assets/img/icon-app.png",
+        "backgroundColor": "#964a3b"
       },
       "edgeToEdgeEnabled": true,
       "package": "com.jossedev.cashiercafe"
